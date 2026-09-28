@@ -1,0 +1,14 @@
+// Cloudflare Workers config — static site served from the Flutter web build.
+// `wrangler deploy` runs cloudflare-build.sh first, then uploads build/web.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "youssef-elsrogi-portfoilo",
+  "compatibility_date": "2026-09-01",
+  "build": {
+    "command": "bash cloudflare-build.sh"
+  },
+  "assets": {
+    "directory": "./build/web",
+    "not_found_handling": "single-page-application"
+  }
+}

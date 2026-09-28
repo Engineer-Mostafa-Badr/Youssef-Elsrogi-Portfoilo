@@ -16,15 +16,11 @@ flutter run -d chrome
 flutter build web --release   # output: build/web
 ```
 
-Deployed on **Cloudflare Pages**, connected to this GitHub repo — every push to `main` rebuilds the site.
-Cloudflare's build image has no Flutter, so `cloudflare-build.sh` installs the pinned version (3.35.3) first.
+Deployed on **Cloudflare Workers** (static assets), connected to this GitHub repo — every push to `main` rebuilds the site.
+`wrangler.jsonc` tells `wrangler deploy` to run `cloudflare-build.sh` first (Cloudflare's build image has no Flutter,
+so the script installs the pinned version, 3.35.3), then upload `build/web`.
 
-| Pages setting | Value |
-| --- | --- |
-| Framework preset | None |
-| Build command | `bash cloudflare-build.sh` |
-| Build output directory | `build/web` |
-| Production branch | `main` |
+Dashboard (Worker → Settings → Build): build command empty, deploy command `npx wrangler deploy`.
 
 `web/_headers` sets caching + security headers; `robots.txt` / `sitemap.xml` point to https://youssefelsrogi.com.
 
